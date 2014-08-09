@@ -45,6 +45,29 @@ pub fn elem(name: String, attrs: AttrMap, children: Vec<Node>) -> Node {
 pub fn comment(data: String) -> Node {
     Node { children: vec![], node_type: Comment(data) }
 }
+
+// Node methods
+impl Node {
+    pub fn print(&self, level: uint) {
+        for i in range(0, level) { print!("-"); }
+        match self.node_type {
+            Element(ref data) => {
+                println!("{}: {}", data.tag_name, data.attributes)
+            }
+            Comment(ref data) => {
+                println!("comment: {}", data)
+            }
+            Text(ref data) => {
+                println!("text: {}", data)
+
+            }
+        }
+        for c in self.children.iter() {
+            c.print(level + 1)
+        }
+    }
+}
+
 // Element methods
 
 impl ElementData {
