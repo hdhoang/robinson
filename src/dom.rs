@@ -17,6 +17,7 @@ pub struct Node {
 pub enum NodeType {
     Element(ElementData),
     Text(String),
+    Comment(String),
 }
 
 #[deriving(Show)]
@@ -41,6 +42,9 @@ pub fn elem(name: String, attrs: AttrMap, children: Vec<Node>) -> Node {
     }
 }
 
+pub fn comment(data: String) -> Node {
+    Node { children: vec![], node_type: Comment(data) }
+}
 // Element methods
 
 impl ElementData {
